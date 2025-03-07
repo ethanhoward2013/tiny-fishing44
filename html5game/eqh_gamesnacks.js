@@ -49,10 +49,12 @@ function js_isMobileOrTablet() {
 function toggleAudio() {
     audioEnabled = !audioEnabled;
     console.log('Audio Enabled: ' + audioEnabled);
+    // Implement actual game logic to toggle audio
+    // E.g., GAMESNACKS.setAudioEnabled(audioEnabled);
 }
 
 function showScore() {
-    alert('Toggling Score Display (implement this functionality)');
+    alert('Current Money: ' + currentMoney + '\nCurrent Coins: ' + currentCoins);
 }
 
 function triggerGameOver() {
@@ -62,10 +64,10 @@ function triggerGameOver() {
 function toggleInfiniteMoney() {
     infiniteMoney = !infiniteMoney;
     if (infiniteMoney) {
-        currentMoney = 9999999; // Give infinite money (you can adjust this to your needs)
+        currentMoney = 9999999; // Give infinite money
         console.log("Infinite Money Activated");
     } else {
-        currentMoney = 1000; // Reset to the initial value or handle it as you like
+        currentMoney = 1000; // Reset to initial value or handle it as you like
         console.log("Infinite Money Deactivated");
     }
 }
@@ -73,17 +75,20 @@ function toggleInfiniteMoney() {
 function toggleInfiniteCoins() {
     infiniteCoins = !infiniteCoins;
     if (infiniteCoins) {
-        currentCoins = 9999999; // Give infinite coins (adjust as needed)
+        currentCoins = 9999999; // Give infinite coins
         console.log("Infinite Coins Activated");
     } else {
-        currentCoins = 100; // Reset to the initial value or handle it as you like
+        currentCoins = 100; // Reset to initial value or handle it as you like
         console.log("Infinite Coins Deactivated");
     }
 }
 
 // Create Mod Menu UI (HTML)
+var modMenu;
+var modMenuVisible = true;
+
 function createModMenu() {
-    var modMenu = document.createElement('div');
+    modMenu = document.createElement('div');
     modMenu.style.position = 'fixed';
     modMenu.style.top = '10px';
     modMenu.style.left = '10px';
@@ -108,7 +113,7 @@ function createModMenu() {
     
     // Toggle Score Button
     var scoreButton = document.createElement('button');
-    scoreButton.innerText = 'Toggle Score';
+    scoreButton.innerText = 'Show Score';
     scoreButton.style.backgroundColor = '#1e90ff';
     scoreButton.style.border = 'none';
     scoreButton.style.color = 'white';
@@ -154,15 +159,40 @@ function createModMenu() {
     infiniteCoinsButton.style.cursor = 'pointer';
     infiniteCoinsButton.addEventListener('click', toggleInfiniteCoins);
     
+    // Hide/Unhide Button
+    var hideMenuButton = document.createElement('button');
+    hideMenuButton.innerText = 'Hide Menu';
+    hideMenuButton.style.backgroundColor = '#ffa500';
+    hideMenuButton.style.border = 'none';
+    hideMenuButton.style.color = 'white';
+    hideMenuButton.style.padding = '10px';
+    hideMenuButton.style.margin = '5px';
+    hideMenuButton.style.borderRadius = '5px';
+    hideMenuButton.style.cursor = 'pointer';
+    hideMenuButton.addEventListener('click', toggleModMenuVisibility);
+
     // Append buttons to mod menu
     modMenu.appendChild(audioButton);
     modMenu.appendChild(scoreButton);
     modMenu.appendChild(gameOverButton);
     modMenu.appendChild(infiniteMoneyButton);
     modMenu.appendChild(infiniteCoinsButton);
+    modMenu.appendChild(hideMenuButton);
     
     // Append mod menu to body
     document.body.appendChild(modMenu);
+}
+
+// Toggle visibility of mod menu
+function toggleModMenuVisibility() {
+    modMenuVisible = !modMenuVisible;
+    if (modMenuVisible) {
+        modMenu.style.display = 'block'; // Show the menu
+        hideMenuButton.innerText = 'Hide Menu';
+    } else {
+        modMenu.style.display = 'none'; // Hide the menu
+        hideMenuButton.innerText = 'Show Menu';
+    }
 }
 
 // Initialize the mod menu when the script runs
