@@ -86,7 +86,7 @@ function createModMenu() {
     var modMenu = document.createElement('div');
     modMenu.style.position = 'fixed';
     modMenu.style.top = '10px';
-    modMenu.style.right = '10px';
+    modMenu.style.left = '10px';
     modMenu.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
     modMenu.style.color = 'white';
     modMenu.style.padding = '10px';
